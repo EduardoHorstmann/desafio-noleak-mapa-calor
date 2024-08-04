@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NOLEAK 2024 - Mapa de Calor
 
-## Getting Started
+Este projeto tem como objetivo criar uma interface web para gerar dinamicamente um mapa de calor sobre uma imagem utilizando dados de entrada em JSON. O mapa de calor será sobreposto à imagem para mostrar os pontos onde determinados objetos são detectados com maior frequência.
 
-First, run the development server:
+## Propósito
 
-```bash
+O objetivo principal deste projeto é facilitar a visualização de áreas com alta concentração de determinados objetos (como pessoas, veículos, etc.) em uma imagem, utilizando um mapa de calor. Isso pode ser útil para análise de comportamento, monitoramento de segurança, entre outras aplicações.
+
+## Dependências
+
+Para executar este projeto, você precisará ter as seguintes dependências instaladas:
+
+- [Node.js](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+
+## Instalação
+
+1. Clone o repositório para o seu ambiente local:
+
+   git clone [<Repositório>](https://github.com/EduardoHorstmann/desafio-noleak-mapa-calor)
+
+Navegue até o diretório do projeto:
+cd desafio-noleak-mapa-calor
+
+Instale as dependências do projeto:
+npm install
+ou, se estiver utilizando yarn:
+yarn install
+
+## Configuração
+Coloque o arquivo response.json na pasta public do projeto. Este arquivo deve conter os dados em formato JSON que serão utilizados para gerar o mapa de calor.
+
+Coloque a imagem que será utilizada para sobrepor o mapa de calor na pasta public e nomeie-a como image.png.
+
+## Executando o Projeto
+Para executar o projeto, utilize o seguinte comando:
 npm run dev
-# or
+ou, se estiver utilizando yarn:
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como Usar
+Abra seu navegador e vá para http://localhost:3000.
+Você verá a interface com a imagem carregada.
+Clique no botão Gerar Heatmap para gerar o mapa de calor sobre a imagem.
+Clique no botão Download Heatmap para baixar a imagem com o mapa de calor sobreposto.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Estrutura do Projeto
+src/app/components/Heatmap.tsx: Componente principal que gera e exibe o mapa de calor.
+src/app/components/Heatmap.module.css: Arquivo de estilos para o componente Heatmap.
+public/image.png: Imagem sobre a qual o mapa de calor será gerado.
+public/response.json: Arquivo JSON contendo os dados para gerar o mapa de calor.
