@@ -30,6 +30,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
     initializeHeatmap();
   }, [imageUrl]);
 
+  /**
+   * Verifica se contém a imagem no disco
+   */
   const checkIfImageExists = async () => {
     try {
       const response = await axios.get('/image.png');
@@ -41,6 +44,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
     }
   };
 
+  /**
+   * Inicializa o heatmap
+   */
   const initializeHeatmap = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -73,6 +79,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
     };
   };
 
+  /**
+   * Gera o heatmap com base nos dados
+   */
   const generateHeatmap = async () => {
     if (!heatmapInstance.current) return;
 
@@ -111,6 +120,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
     return points;
   };
 
+  /**
+   * Salva a imagem com os pontos de calor
+   */
   const saveHeatmapImage = async () => {
     const canvas = canvasRef.current!;
     const heatmapDataURL = heatmapInstance.current!.getDataURL();
@@ -129,7 +141,7 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
 
         const dataUrl = canvas.toDataURL();
         try {
-          const response = await axios.post('/api/save-heatmap', { image: dataUrl });
+          const response = await axios.post('/api/saveHeatmap', { image: dataUrl });
           if (response.status === 200) {
             console.log('Imagem salva com sucesso.');
             setImageExists(true);
@@ -141,6 +153,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
     };
   };
 
+  /**
+   * Realiza o download da imagem
+   */
   const downloadImage = async () => {
     if (!imageExists) {
       await generateHeatmap();

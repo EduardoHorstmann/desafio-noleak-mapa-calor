@@ -16,7 +16,7 @@ interface Data {
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Heatmap from './components/Heatmap';
-import styles from './page.module.css';
+import styles from './styles/page.module.css';
 
 const Home: React.FC = () => {
   const [data, setData] = useState<Data | null>(null);
