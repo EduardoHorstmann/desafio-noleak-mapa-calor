@@ -12,7 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const { image } = req.body;
 
     const base64Data = image.replace(/^data:image\/png;base64,/, '');
-    const filePath = path.resolve('./public/image.png');
+    const filePath = path.resolve('./public/image_heatmap.png');
 
     fs.writeFile(filePath, base64Data, 'base64', (err) => {
       if (err) {

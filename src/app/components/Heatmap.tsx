@@ -26,23 +26,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
   const [imageExists, setImageExists] = useState(false);
 
   useEffect(() => {
-    checkIfImageExists();
     initializeHeatmap();
   }, [imageUrl]);
 
-  /**
-   * Verifica se contém a imagem no disco
-   */
-  const checkIfImageExists = async () => {
-    try {
-      const response = await axios.get('/image.png');
-      if (response.status === 200) {
-        setImageExists(true);
-      }
-    } catch (error) {
-      setImageExists(false);
-    }
-  };
 
   /**
    * Inicializa o heatmap
@@ -80,9 +66,31 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
   };
 
   /**
-   * Gera o heatmap com base nos dados
+   * Carrega a imagem com heatmap
+   */
+  const loadExistingHeatmap = () => {
+    const canvas = canvasRef.current;
+    const contexto = canvas.getContext('2d');
+    if (!canvas || !contexto) return;
+
+    const img = new Image();
+    img.src = '/image_heatmap.png';
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      contexto.drawImage(img, 0, 0);
+    };
+  };
+
+  /**
+   * Gera a imagem com os pontos de calor
    */
   const generateHeatmap = async () => {
+    if (imageExists) {
+      loadExistingHeatmap();
+      return;
+    }
+
     if (!heatmapInstance.current) return;
 
     const points = parseHeatmapData(data, object);
@@ -123,7 +131,7 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
   /**
    * Salva a imagem com os pontos de calor
    */
-  const saveHeatmapImage = async () => {
+    const saveHeatmapImage = async () => {
     const canvas = canvasRef.current!;
     const heatmapDataURL = heatmapInstance.current!.getDataURL();
 
@@ -162,8 +170,8 @@ const Heatmap: React.FC<HeatmapProps> = ({ data, imageUrl, object }) => {
     }
 
     const link = document.createElement('a');
-    link.href = '/image.png';
-    link.download = 'image.png';
+    link.href = '/image_heatmap.png';
+    link.download = 'image_heatmap.png';
     link.click();
   };
 
